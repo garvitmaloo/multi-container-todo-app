@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  node-template-app:
+    image: node-typescript-template:v2
+    container_name: node-template-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    restart: always
+    volumes:
+      - ./:/app
+    environment:
+      - PORT=${PORT}
