@@ -1,7 +1,18 @@
 version: "3.7"
 
 services:
-  node-template-app:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  backend-app:
     image: node-typescript-template:v2
     container_name: node-template-app
     build:
@@ -12,5 +23,5 @@ services:
     restart: always
     volumes:
       - ./:/app
-    environment:
-      - PORT=${PORT}
+    depends_on:
+      - mysql
