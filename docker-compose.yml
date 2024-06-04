@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  backend:
+    container_name: express-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    restart: always
+    depends_on:
+      - mysql
+
+  frontend:
+    container_name: react-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    depends_on:
+      - mysql
