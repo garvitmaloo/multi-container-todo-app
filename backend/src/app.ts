@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import type { Request, Response, NextFunction } from "express";
+import cors from "cors";
 
 import { logger } from "./utils/logger";
 import { handleErrors } from "./middleware/handleErrors";
@@ -20,6 +21,12 @@ app.use(
   })
 );
 app.use(morgan("tiny"));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["OPTIONS", "GET", "PUT", "POST", "DELETE"]
+  })
+);
 
 const port = process.env.PORT ?? 9000;
 
