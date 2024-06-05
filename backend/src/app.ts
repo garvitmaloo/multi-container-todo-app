@@ -9,6 +9,7 @@ import cors from "cors";
 import { logger } from "./utils/logger";
 import { handleErrors } from "./middleware/handleErrors";
 import { sequelize } from "./config/db";
+import getAllUsers from "./routes/getAllUsers";
 
 const app = express();
 config();
@@ -31,6 +32,7 @@ app.use(
 const port = process.env.PORT ?? 9000;
 
 // APP ROUTES
+app.get("/users", getAllUsers);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   handleErrors(error, req, res, next);
