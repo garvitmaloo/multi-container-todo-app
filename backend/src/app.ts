@@ -23,7 +23,7 @@ app.use(
 app.use(morgan("tiny"));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     methods: ["OPTIONS", "GET", "PUT", "POST", "DELETE"]
   })
 );
