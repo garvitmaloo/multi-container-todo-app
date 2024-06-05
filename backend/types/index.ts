@@ -5,3 +5,8 @@ export interface IStandardResponse<T> {
   } | null;
   result: T | null;
 }
+
+export interface ITodo {
+  title: string;
+  description: string;
+}
