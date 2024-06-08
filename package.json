@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "husky": "^9.0.11"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test:all": "npm run test:frontend && npm run test:backend"
+  }
+}
