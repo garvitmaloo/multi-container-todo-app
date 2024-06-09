@@ -14,29 +14,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup node js
         uses: actions/setup-node@v3
         with:
           node-version: [20.x]
-      
+
       - name: Install dependencies
         run: cd backend && npm install
 
       - name: Run backend tests
         run: cd backend && npm run test
-  
+
   frontend-testing:
     runs-on: ubuntu-latest
 
-    - name: Setup node js
-      uses: actions/setup-node@v3
-      with:
-        node-version: [20.x]
+    steps:
+      - name: Setup node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: [20.x]
 
-    - name: Install dependencies
-      run: cd frontend && npm install
+      - name: Install dependencies
+        run: cd frontend && npm install
 
-    - name: Run frontend tests
-      run: cd frontend && npm run test
-
+      - name: Run frontend tests
+        run: cd frontend && npm run test
