@@ -32,7 +32,7 @@ const TodoDeadline = styled(Paragraph)`
 
 const TodoCard: React.FC<TodoCardProps> = ({ heading, description, deadline, isCompleted }) => {
   return (
-    <Card style={{ gap: "0.5rem" }}>
+    <Card style={{ gap: "0.5rem" }} data-testid='todo-card-wrapper'>
       <TodoCardTextWrapper>
         <TodoHeading>{heading}</TodoHeading>
         <TodoDescription>{description}</TodoDescription>
