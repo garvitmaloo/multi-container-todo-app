@@ -9,4 +9,5 @@ export interface IStandardResponse<T> {
 export interface ITodo {
   title: string;
   description: string;
+  deadline: string;
 }
