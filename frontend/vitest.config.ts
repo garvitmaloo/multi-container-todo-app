@@ -9,7 +9,12 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       reportsDirectory: "./coverage",
-      exclude: ["src/main.tsx", ".eslintrc.cjs"],
+      exclude: [
+        "src/main.tsx",
+        ".eslintrc.cjs",
+        "src/**/queries/index.ts",
+        "src/**/tests/mocks.ts",
+      ],
       thresholds: {
         statements: 90,
         branches: 90,

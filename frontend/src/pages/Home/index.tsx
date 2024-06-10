@@ -8,15 +8,32 @@ import {
   PrimaryHeading,
 } from "./components/styles";
 import TodoCard from "../../components/TodoCard";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { displayDateInStandardFormat } from "../../utils/date-utils";
-import { fetchAllTodos } from "./queries";
+import { fetchAllTodos, updateTodoStatus } from "./queries";
+import { IStandardResponse } from "../../types";
 
 const Home = () => {
   const { data: apiResponse } = useQuery({
     queryKey: ["todo"],
     queryFn: () => fetchAllTodos(),
   });
+
+  const updateTodo = useMutation<
+    IStandardResponse<string>,
+    Error,
+    { id: number; updateQuery: unknown }
+  >({
+    mutationFn: (args) => updateTodoStatus(args.id, args.updateQuery),
+    mutationKey: ["todo"],
+  });
+
+  const handleClickHandler = (id: number) => {
+    updateTodo.mutate({
+      id,
+      updateQuery: { isCompleted: true },
+    });
+  };
 
   const pendingTodos = apiResponse?.result?.filter((todo) => todo.isCompleted === false);
   const doneTodos = apiResponse?.result?.filter((todo) => todo.isCompleted === true);
@@ -35,10 +52,12 @@ const Home = () => {
           {pendingTodos?.map((todo) => (
             <TodoCard
               key={todo.id}
+              id={todo.id}
               heading={todo.title}
               description={todo.description}
               deadline={displayDateInStandardFormat(new Date(todo.deadline))}
               isCompleted={false}
+              onClickHandler={handleClickHandler}
             />
           ))}
         </VerticalWrapper>
@@ -49,10 +68,12 @@ const Home = () => {
           {doneTodos?.map((todo) => (
             <TodoCard
               key={todo.id}
+              id={todo.id}
               heading={todo.title}
               description={todo.description}
               deadline={displayDateInStandardFormat(new Date(todo.deadline))}
               isCompleted={true}
+              onClickHandler={() => {}}
             />
           ))}
         </VerticalWrapper>
