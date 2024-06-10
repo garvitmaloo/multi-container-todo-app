@@ -30,7 +30,14 @@ const TodoDeadline = styled(Paragraph)`
   font-style: italic;
 `;
 
-const TodoCard: React.FC<TodoCardProps> = ({ heading, description, deadline, isCompleted }) => {
+const TodoCard: React.FC<TodoCardProps> = ({
+  id,
+  heading,
+  description,
+  deadline,
+  isCompleted,
+  onClickHandler,
+}) => {
   return (
     <Card style={{ gap: "0.5rem" }} data-testid='todo-card-wrapper'>
       <TodoCardTextWrapper>
@@ -41,6 +48,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ heading, description, deadline, isC
       <SecondaryButton
         disabled={isCompleted}
         style={{ cursor: isCompleted ? "not-allowed" : "pointer" }}
+        onClick={() => onClickHandler(id)}
       >
         {isCompleted ? "Done" : "Mark as done"}
       </SecondaryButton>
@@ -49,9 +57,12 @@ const TodoCard: React.FC<TodoCardProps> = ({ heading, description, deadline, isC
 };
 
 type TodoCardProps = {
+  id: number;
   heading: string;
   description: string;
   deadline: string;
   isCompleted: boolean;
+  // eslint-disable-next-line no-unused-vars
+  onClickHandler: (id: number) => void;
 };
 export default TodoCard;
