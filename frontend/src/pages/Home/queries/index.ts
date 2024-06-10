@@ -9,9 +9,6 @@ export const fetchAllTodos = async () => {
 };
 
 export const updateTodoStatus = async (id: number, updateQuery: unknown) => {
-  // const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/todos/${id}`, updateQuery);
-  return {
-    error: null,
-    result: "DONE",
-  };
+  const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/todos/${id}`, updateQuery);
+  return data;
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { PrimaryButton, HorizontalFlexWrapper } from "../../styled";
 import {
@@ -14,6 +15,8 @@ import { fetchAllTodos, updateTodoStatus } from "./queries";
 import { IStandardResponse } from "../../types";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const { data: apiResponse } = useQuery({
     queryKey: ["todo"],
     queryFn: () => fetchAllTodos(),
@@ -35,6 +38,10 @@ const Home = () => {
     });
   };
 
+  const handleClickAddTodo = () => {
+    navigate("/new");
+  };
+
   const pendingTodos = apiResponse?.result?.filter((todo) => todo.isCompleted === false);
   const doneTodos = apiResponse?.result?.filter((todo) => todo.isCompleted === true);
 
@@ -42,7 +49,7 @@ const Home = () => {
     <>
       <HorizontalFlexWrapper>
         <PrimaryHeading>Your todos</PrimaryHeading>
-        <PrimaryButton>Add new todo</PrimaryButton>
+        <PrimaryButton onClick={handleClickAddTodo}>Add new todo</PrimaryButton>
       </HorizontalFlexWrapper>
 
       <HorizontalWrapper style={{ gap: "1rem" }}>

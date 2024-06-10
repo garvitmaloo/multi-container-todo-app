@@ -15,3 +15,9 @@ export interface ITodo {
   createdAt: string;
   updatedAt: string;
 }
+
+export type TodoDetails = {
+  title: string;
+  description: string;
+  deadline: string;
+};
